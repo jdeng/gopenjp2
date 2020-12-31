@@ -1,4 +1,4 @@
-package jp2cc
+package gopenjp2
 
 import (
 	"fmt"
