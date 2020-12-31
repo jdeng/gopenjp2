@@ -2,7 +2,6 @@ package jp2cc
 
 import (
 	"fmt"
-	"log"
 	"unsafe"
 )
 
@@ -16,12 +15,11 @@ import "C"
 const OPJ_CODEC_JP2 = 2
 
 func Encode(bs []byte) ([]byte, error) {
-	var datalen C.int = 0
+	var datalen C.int
 	var out *C.uint8_t
 	ret := C.jp2EncodeImage(unsafe.Pointer(&bs[0]), C.size_t(len(bs)), &out, &datalen, OPJ_CODEC_JP2, 95)
 	if int(ret) < 0 {
-		log.Printf("Failed to encode page\n")
-		return nil, fmt.Errorf("Failed to encode page\n")
+		return nil, fmt.Errorf("failed to encode")
 	}
 	defer C.free(unsafe.Pointer(out))
 
